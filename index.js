@@ -14,6 +14,7 @@ const myGameArea = {
   clear() {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
   },
+
 };
 
 // heroi
@@ -96,14 +97,36 @@ class Enemy {
       alert('VOCÊ É UMA VERGONHA PARA A PROFISSÃO');
     }
   }
-}
+
+  infiniteMotion() {
+
+    const dx = 4;
+    const dy = -4;
+    this.x += dx;
+    if (this.x < 0) {
+      this.x = 0;
+    } else if ((this.x + this.width) > myGameArea.canvas.width) {
+      this.x = myGameArea.canvas.width - this.width;
+    }
+    this.y += dy;
+    if (this.y < 0) {
+      this.y = 0;
+    } else if ((this.y + this.height) > myGameArea.canvas.height) {
+      this.y = myGameArea.canvas.height - this.height;
+    }
+  }
+
+};
 
 const enemy = new Enemy(50, 50, 'red', 400, 300);
+
+
 
 function updateGameArea() {
   myGameArea.clear();
   player.newMove();
   player.update();
+  enemy.infiniteMotion();
   enemy.collision();
   enemy.update();
 }
