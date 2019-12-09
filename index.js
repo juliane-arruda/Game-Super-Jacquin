@@ -1,3 +1,6 @@
+/* eslint-disable */
+console.log('salve o tompero');
+
 const myGameArea = {
   canvas: document.getElementById('canvas'),
   frames: 0,
@@ -71,10 +74,38 @@ document.onkeyup = function (e) {
   player.speedY = 0;
 };
 
+// inimigo
+class Enemy {
+  constructor(width, height, color, x, y) {
+    this.width = width;
+    this.height = height;
+    this.color = color;
+    this.x = x;
+    this.y = y;
+  }
+
+  update() {
+    const ctx = myGameArea.context;
+    ctx.fillStyle = this.color;
+    ctx.fillRect(this.x, this.y, this.width, this.height);
+  }
+
+  collision() {
+    if (this.x <= (player.width + player.x) && (this.x + this.width) >= player.x && this.y <= (player.height + player.y) && (this.y + this.height) >= player.y) {
+      console.log('RIP');
+      alert('VOCÊ É UMA VERGONHA PARA A PROFISSÃO');
+    }
+  }
+}
+
+const enemy = new Enemy(50, 50, 'red', 400, 300);
+
 function updateGameArea() {
   myGameArea.clear();
   player.newMove();
   player.update();
+  enemy.collision();
+  enemy.update();
 }
 
 myGameArea.start();
