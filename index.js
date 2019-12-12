@@ -1,5 +1,4 @@
 /* eslint-disable */
-console.log('salve o tompero');
 const myFreezer = [];
 let score = 0;
 
@@ -7,6 +6,7 @@ const myGameArea = {
   intro: document.getElementById('intro'),
   finish: document.getElementById('finish'),
   canvas: document.getElementById('canvas'),
+  score: document.getElementById('score-real'),
   frames: 0,
   start() {
     this.canvas.width = 1000;
@@ -103,10 +103,7 @@ class Enemy {
   collision() {
     if (this.x <= (player.width + player.x) && (this.x + this.width) >= player.x && this.y <= (player.height + player.y) && (this.y + this.height) >= player.y) {
       return true;
-      // console.log('RIP');
-      //alert('VOCÊ É UMA VERGONHA PARA A PROFISSÃO');
     }
-
     return false;
   }
 
@@ -171,6 +168,7 @@ function gameOver() {
   myGameArea.canvas.style.display = "none";
   myGameArea.finish.style.display = "block";
   clearInterval(myGameArea.interval);
+  document.getElementById('score').innerText=score;
 }
 
 function updateGameArea() {
@@ -184,11 +182,12 @@ function updateGameArea() {
   enemy.update();
   if (freezer.collision()) {
     score += 1;
-    console.log(score);
+    myGameArea.score.innerText = `score ${score}`;
     freezer.newPosition();
     obstacle = false;
   }
   freezer.update();
+
 }
 
 // myGameArea.start();
@@ -208,5 +207,6 @@ document.getElementById('retry-finish').addEventListener("click", () => {
   freezer.y = 100;
   enemy.x = 800;
   enemy.y = 800;
+  score = 0;
   myGameArea.start();
 });
