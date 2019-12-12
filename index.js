@@ -1,15 +1,16 @@
 /* eslint-disable */
 console.log('salve o tompero');
 const myFreezer = [];
-let obstacle = false;
-
+let score = 0;
 
 const myGameArea = {
+  intro: document.getElementById('intro'),
+  finish: document.getElementById('finish'),
   canvas: document.getElementById('canvas'),
   frames: 0,
   start() {
-    this.canvas.width = 800;
-    this.canvas.height = 600;
+    this.canvas.width = 1000;
+    this.canvas.height = 650;
     this.context = this.canvas.getContext('2d');
     document.body.insertBefore(this.canvas, document.body.childNodes[0]);
     this.interval = setInterval(updateGameArea, 20);
@@ -34,8 +35,9 @@ class Hero {
 
   update() {
     const ctx = myGameArea.context;
-    ctx.fillStyle = this.color;
-    ctx.fillRect(this.x, this.y, this.width, this.height);
+    let jacquinImg = new Image();
+    jacquinImg.src = './imagem/hero.png';
+    ctx.drawImage(jacquinImg, this.x, this.y, this.width, this.height);
   }
 
   newMove() {
@@ -77,7 +79,7 @@ document.onkeyup = function (e) {
   player.speedY = 0;
 };
 
-const player = new Hero(50, 50, "purple", 0, 0);
+const player = new Hero(80, 80, "purple", 0, 0);
 
 // inimigo
 class Enemy {
@@ -93,19 +95,19 @@ class Enemy {
 
   update() {
     const ctx = myGameArea.context;
-    ctx.fillStyle = this.color;
-    ctx.beginPath();
-    ctx.arc(this.x + this.width / 2, this.y + this.height / 2, this.width / 2, 0, 2 * Math.PI);
-    ctx.fill();
+    let enemyImg = new Image();
+    enemyImg.src = './imagem/enemy.png';
+    ctx.drawImage(enemyImg, this.x, this.y, this.width, this.height);
   }
 
   collision() {
     if (this.x <= (player.width + player.x) && (this.x + this.width) >= player.x && this.y <= (player.height + player.y) && (this.y + this.height) >= player.y) {
-      console.log('RIP');
+      return true;
+      // console.log('RIP');
       //alert('VOCÊ É UMA VERGONHA PARA A PROFISSÃO');
-      //document.location.reload();
-      //clearInterval(this.interval);
     }
+
+    return false;
   }
 
   infiniteMotion() {
@@ -130,7 +132,7 @@ class Enemy {
 
 };
 
-const enemy = new Enemy(50, 50, 'red', 400, 300);
+const enemy = new Enemy(80, 80, 'red', 800, 800);
 
 //freezer que vai ser coletado
 class Freezer {
@@ -144,42 +146,67 @@ class Freezer {
 
   update() {
     const ctx = myGameArea.context;
-    ctx.fillStyle = this.color;
-    ctx.fillRect(this.x, this.y, this.width, this.height);
+    let freezerImg = new Image();
+    freezerImg.src = './imagem/freezer.png';
+    ctx.drawImage(freezerImg, this.x, this.y, this.width, this.height);
   }
 
-  collision(){
+  collision() {
     if (this.x <= (player.width + player.x) && (this.x + this.width) >= player.x && this.y <= (player.height + player.y) && (this.y + this.height) >= player.y) {
-      console.log('bateu');
-      obstacle = true;
+      return true;
     }
+
+    return false;
   }
 
-  newPosition(){
-    this.x = Math.floor(Math.random()*750);
-    this.y = Math.floor(Math.random()*550);
+  newPosition() {
+    this.x = Math.floor(Math.random() * 900);
+    this.y = Math.floor(Math.random() * 550);
   }
+};
 
-  //pushCollision()
+const freezer = new Freezer(50, 80, 'black', 100, 100);
+
+function gameOver() {
+  myGameArea.canvas.style.display = "none";
+  myGameArea.finish.style.display = "block";
+  clearInterval(myGameArea.interval);
 }
-
-const freezer = new Freezer(50, 50, 'black', 100, 100);
-
-
 
 function updateGameArea() {
   myGameArea.clear();
   player.newMove();
   player.update();
   enemy.infiniteMotion();
-  enemy.collision();
+  if (enemy.collision()) {
+    gameOver();
+  };
   enemy.update();
-  freezer.collision();
-  if(obstacle === true){
+  if (freezer.collision()) {
+    score += 1;
+    console.log(score);
     freezer.newPosition();
     obstacle = false;
   }
   freezer.update();
 }
 
-myGameArea.start();
+// myGameArea.start();
+myGameArea.intro.style.display = "block";
+document.getElementById('start-intro').addEventListener("click", () => {
+  myGameArea.intro.style.display = "none";
+  myGameArea.canvas.style.display = "block";
+  myGameArea.start();
+});
+
+document.getElementById('retry-finish').addEventListener("click", () => {
+  myGameArea.finish.style.display = "none";
+  myGameArea.canvas.style.display = "block";
+  player.x = 0;
+  player.y = 0;
+  freezer.x = 100;
+  freezer.y = 100;
+  enemy.x = 800;
+  enemy.y = 800;
+  myGameArea.start();
+});

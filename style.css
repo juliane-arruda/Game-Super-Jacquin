@@ -3,13 +3,25 @@
   padding: 0;
 }
 
-#canvas {
+body {
+  background-image: url("./imagem/background-jacquin.png");
+  background-repeat: no-repeat;
+}
+
+.game{
+  width: 1000px;
+  height: 650px;
   position: absolute;
-  top: 0px;
-  left: 0px;
+  top: 0%;
+  left: 0%;
   right: 0px;
-  margin: auto;
-  top: 0px;
+  margin: 0px;
   bottom: 0px;
   border: 1px solid black;
+  display: none;
+}
+
+#canvas {  
+  background-image: url("./imagem/pesadelo-na-cozinha.jpg");
+  background-repeat: no-repeat;
 }
