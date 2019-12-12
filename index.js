@@ -166,7 +166,7 @@ const freezer = new Freezer(50, 80, 'black', 100, 100);
 
 function gameOver() {
   myGameArea.canvas.style.display = "none";
-  myGameArea.finish.style.display = "block";
+  myGameArea.finish.style.display = "flex";
   clearInterval(myGameArea.interval);
   document.getElementById('score').innerText=score;
 }
@@ -191,7 +191,7 @@ function updateGameArea() {
 }
 
 // myGameArea.start();
-myGameArea.intro.style.display = "block";
+myGameArea.intro.style.display = "flex";
 document.getElementById('start-intro').addEventListener("click", () => {
   myGameArea.intro.style.display = "none";
   myGameArea.canvas.style.display = "block";
