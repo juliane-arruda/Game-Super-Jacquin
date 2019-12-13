@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
   <meta charset="UTF-8">
@@ -13,26 +13,47 @@
 
 <body>
   <canvas id="canvas" class="game"></canvas>
+
   <div class="game" id="intro">
-    <button id="start-intro" type="button" class="btn btn-secondary btn-lg">Play</button>
+    <div class="logo-button">
+      <img class="logo" src="./imagem/pesadelo-na-cozinha.png" alt="logo-pesadelo-na-cozinha">
+      <button id="start-intro" type="button" class="btn btn-secondary btn-lg">Play</button>
+    </div>
     <img class="jacquin" src="./imagem/background-jacquin.png" alt="JACQUIN">
   </div>
+
   <div class="game" id="finish">
-    <h2>gfgfgf</h2>
-    <iframe src="https://giphy.com/embed/3XCo2S965EZEmaA0n3" width="480" height="270" frameBorder="0"
-      class="giphy-embed" allowFullScreen></iframe>
-    <p><a href="https://giphy.com/gifs/masterchefbr-masterchef-jacquin-3XCo2S965EZEmaA0n3">via GIPHY</a></p>
-    <button id="retry-finish" type="button" class="btn btn-secondary btn-lg">retry</button>
-    <span id="score"></span>
+    <h2>
+      VOCÊ É A VERGONHA DA PROFISSÃO !!!
+    </h2>
+    <br>
+    <iframe src="./gif/perde.gif" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+    <br>
+    <button id="retry-finish" type="button" class="btn btn-secondary btn-lg">Retry</button>
+    <br>
+    <h4>Score: <span id="score"></span></h4>
   </div>
-  <span id="score-real"></span>
+
   <div id="explanation">
-    <h1>SUPER JACQUIN</h1>
-    <h3>como jogar</h3>
-    <p>Ajude o <img class="move" src="./imagem/hero.png" alt=""> a coletar as <img class="move"
-        src="./imagem/freezer.png" alt=""> antes que o <img class="move" src="./imagem/enemy.png" alt=""> te capture</p>
-    <img class="move" src="./imagem/move.png" alt="move">
-    <p>move</p>
+    <span id="score-real"></span>
+    <br>
+    <h1>Super Jacquin</h1>
+    <br>
+    <p>
+      Era uma vez um dono de restaurante que deixava o freezer desligado por 12 horas para poupar energia.
+      Essa noticia chegou as ouvidos do Super Jacquim que achou isso inadmissível porque os alimentos podem estragar.
+      Ajude o nosso Super jacquin nessa aventura.
+    </p>
+    <h3>Como Jogar</h3>
+    <br>
+    <p>
+      Ajude o <img class="move" src="./imagem/hero.png" alt="Erick Jacquin"> a coletar as <img class="move"
+        src="./imagem/freezer.png" alt="freezes"> antes que o <img class="move" src="./imagem/enemy.png" alt="Inimigo">
+      te capture.
+    </p>
+    <br>
+    <p><img class="move" src="./imagem/move.png" alt="move">
+      Mover</p>
   </div>
 
   <!-- script -->

@@ -1,6 +1,12 @@
 /* eslint-disable */
 const myFreezer = [];
 let score = 0;
+const audioVergonha = new Audio();
+audioVergonha.src= './audio/vergonha-da-profissao.mp3'
+const audioAbertura = new Audio();
+audioAbertura.loop = true;
+audioAbertura.autoplay = true;
+audioAbertura.src='./audio/abertura.mp3'
 
 const myGameArea = {
   intro: document.getElementById('intro'),
@@ -9,6 +15,7 @@ const myGameArea = {
   score: document.getElementById('score-real'),
   frames: 0,
   start() {
+    audioAbertura.play();
     this.canvas.width = 1000;
     this.canvas.height = 650;
     this.context = this.canvas.getContext('2d');
@@ -60,16 +67,16 @@ class Hero {
 document.onkeydown = function (move) {
   switch (move.keyCode) {
     case 38: // up arrow
-      player.speedY -= 1;
+      player.speedY -= 4;
       break;
     case 40: // down arrow
-      player.speedY += 1;
+      player.speedY += 4;
       break;
     case 37: // left arrow
-      player.speedX -= 1;
+      player.speedX -= 4;
       break;
     case 39: // right arrow
-      player.speedX += 1;
+      player.speedX += 4;
       break;
   }
 };
@@ -165,6 +172,8 @@ class Freezer {
 const freezer = new Freezer(50, 80, 'black', 100, 100);
 
 function gameOver() {
+  audioAbertura.pause();
+  audioVergonha.play();
   myGameArea.canvas.style.display = "none";
   myGameArea.finish.style.display = "flex";
   clearInterval(myGameArea.interval);
